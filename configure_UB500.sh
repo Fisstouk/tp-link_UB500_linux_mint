@@ -5,6 +5,14 @@ set -e
 
 secureboot_test="mokutil --sb-state"
 
+if [ "$USER" != "root" ];
+then
+	echo "Please use this script as root"
+	echo "This script will stop..."
+	sleep 2
+	exit
+fi
+
 if [ $(secureboot_test) = "SecureBoot disabled" ] ;
 then
 	echo "Script will run..."
