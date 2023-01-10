@@ -3,8 +3,6 @@
 set -x
 set -e
 
-secureboot_test="mokutil --sb-state"
-
 if [ "$USER" != "root" ];
 then
 	echo "Please use this script as root"
@@ -12,6 +10,17 @@ then
 	sleep 2
 	exit
 fi
+
+if [ ! -f "/usr/bin/mokutil" ];
+then
+	echo "mokutil package will be installed..."
+	sleep 2
+	sudo apt install mokutil
+	echo "Package installed"
+fi
+
+secureboot_test="mokutil --sb-state"
+
 
 if [ $(secureboot_test) = "SecureBoot disabled" ] ;
 then
