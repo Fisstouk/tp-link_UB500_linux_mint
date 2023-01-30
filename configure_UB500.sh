@@ -11,8 +11,23 @@ then
 	exit
 fi
 
+if [ ! -f "/usr/bin/git" ];
+then
+    echo "git has not been found."
+    echo "git package will be installed..."
+    sudo apt install git
+fi
+
+if [ ! -f "/usr/sbin/dkms" ];
+then
+    echo "dkms has not been found."
+    echo "dkms package will be installed..."
+    sudo apt install dkms
+fi
+
 if [ ! -f "/usr/bin/mokutil" ];
 then
+    echo "mokutil has not been found."
 	echo "mokutil package will be installed..."
 	sleep 2
 	sudo apt install mokutil
@@ -30,11 +45,11 @@ else
 	read answer	
 	if [[ "$answer" = "n" || "$answer" = "no" || "$answer" = "No" ]] ;
 	then
+        echo "The script will stop."
 		exit 0
 	fi	
 
 
-sudo apt install git dkms mokutil
 cd /home/$USER
 git clone https://github.com/jeremyb31/bluetooth-5.15.git
 cd bluetooth-5.15
